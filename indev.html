@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Virtual Raqamlar — Sotuv</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">VR</div>
+      <div>
+        <div class="title">Virtual Raqamlar</div>
+        <div class="subtitle">Onlayn raqamlar do‘koni</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn ghost" id="btnPolicy">Qoidalar</button>
+      <button class="btn" id="btnCart">
+        Savat <span class="badge" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero card">
+      <div class="heroText">
+        <h1>Virtual raqamlar — tez va qulay</h1>
+        <p class="muted">
+          Turli mamlakatlar bo‘yicha virtual raqamlar. Xizmatlar: qo‘llab-quvvatlash, yetkazish,
+          to‘lovni tasdiqlash.
+        </p>
+
+        <div class="notice">
+          <strong>Ogohlantirish:</strong> Raqamlar faqat <b>qonuniy</b> maqsadlarda ishlatiladi.
+          Firibgarlik, spam, noqonuniy harakatlar taqiqlanadi. Zarurat bo‘lsa KYC talab qilinadi.
+        </div>
+
+        <div class="heroRow">
+          <div class="pill">⚡ Tez berish</div>
+          <div class="pill">🛡️ Xavfsizlik siyosati</div>
+          <div class="pill">💬 Telegram support</div>
+        </div>
+
+        <div class="searchRow">
+          <input id="search" class="input" placeholder="Qidirish: masalan, Uzbekistan, USA, UK..." />
+          <select id="filterType" class="input">
+            <option value="all">Hammasi</option>
+            <option value="rent">Ijara</option>
+            <option value="one">Bir martalik</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="heroCard">
+        <div class="miniCard">
+          <div class="miniTitle">Bugungi taklif</div>
+          <div class="miniValue" id="dealText">—</div>
+          <div class="miniMuted">Chegirmalar avtomatik yangilanadi</div>
+        </div>
+
+        <div class="miniCard">
+          <div class="miniTitle">Ishlash tartibi</div>
+          <ol class="miniList">
+            <li>Katalogdan tanlang</li>
+            <li>Savatga qo‘shing</li>
+            <li>Buyurtmani yuboring</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="sectionHead">
+      <h2>Katalog</h2>
+      <p class="muted">Narxlar namunaviy. To‘lov usullari va mavjudlik sizda o‘zgarishi mumkin.</p>
+    </section>
+
+    <section class="grid" id="productGrid"></section>
+
+    <section class="faq card">
+      <h2>FAQ</h2>
+      <details>
+        <summary>Virtual raqam nima?</summary>
+        <p class="muted">
+          Bu internet orqali beriladigan telefon raqam xizmati. Qonuniy foydalanish uchun taqdim etiladi.
+        </p>
+      </details>
+      <details>
+        <summary>Qanday to‘layman?</summary>
+        <p class="muted">Sayt buyurtma formasini yuboradi. Operator siz bilan bog‘lanib, to‘lovni kelishadi.</p>
+      </details>
+      <details>
+        <summary>KYC bormi?</summary>
+        <p class="muted">Ba’zi raqamlar yoki mamlakatlar bo‘yicha hujjat tekshiruvi talab qilinishi mumkin.</p>
+      </details>
+    </section>
+  </main>
+
+  <!-- CART MODAL -->
+  <div class="modal" id="cartModal" aria-hidden="true">
+    <div class="modalCard">
+      <div class="modalHead">
+        <h3>Savat</h3>
+        <button class="iconBtn" id="closeCart">✕</button>
+      </div>
+      <div id="cartItems" class="cartItems"></div>
+
+      <div class="cartFooter">
+        <div class="total">
+          Jami: <span id="cartTotal">$0</span>
+        </div>
+        <div class="cartBtns">
+          <button class="btn ghost" id="clearCart">Tozalash</button>
+          <button class="btn" id="checkout">Buyurtma berish</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="modal" id="checkoutModal" aria-hidden="true">
+    <div class="modalCard">
+      <div class="modalHead">
+        <h3>Buyurtma formasi</h3>
+        <button class="iconBtn" id="closeCheckout">✕</button>
+      </div>
+
+      <form id="orderForm" class="form">
+        <div class="row">
+          <div>
+            <label>Ism</label>
+            <input class="input" name="name" required placeholder="Ismingiz">
+          </div>
+          <div>
+            <label>Kontakt (Telegram / Email)</label>
+            <input class="input" name="contact" required placeholder="@username yoki email">
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Foydalanish maqsadi</label>
+            <select class="input" name="purpose" required>
+              <option value="">Tanlang</option>
+              <option value="business">Biznes/Support</option>
+              <option value="testing">Test/Develop</option>
+              <option value="other">Boshqa (qonuniy)</option>
+            </select>
+          </div>
+          <div>
+            <label>Izoh</label>
+            <input class="input" name="note" placeholder="Qo‘shimcha ma’lumot">
+          </div>
+        </div>
+
+        <div class="legal">
+          <input type="checkbox" id="legalCheck" required>
+          <label for="legalCheck">
+            Men raqamlarni <b>qonuniy</b> maqsadlarda ishlatishga roziman va qoidalarni qabul qilaman.
+          </label>
+        </div>
+
+        <div class="formActions">
+          <button class="btn ghost" type="button" id="backToCart">Orqaga</button>
+          <button class="btn" type="submit">Yuborish</button>
+        </div>
+
+        <p class="muted tiny" id="submitHint">
+          Yuborgandan keyin ekranda “buyurtma matni” chiqadi — uni Telegram/Email orqali sotuvchiga yuborasiz.
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- POLICY MODAL -->
+  <div class="modal" id="policyModal" aria-hidden="true">
+    <div class="modalCard">
+      <div class="modalHead">
+        <h3>Qoidalar</h3>
+        <button class="iconBtn" id="closePolicy">✕</button>
+      </div>
+      <div class="policy">
+        <ul>
+          <li>Raqamlar faqat qonuniy va halol maqsadlarda ishlatiladi.</li>
+          <li>Spam, firibgarlik, ruxsatsiz kirish, aldov maqsadlari taqiqlanadi.</li>
+          <li>Zarur bo‘lsa KYC (shaxsni tasdiqlash) talab qilinishi mumkin.</li>
+          <li>Narx/mavjudlik vaqt bo‘yicha o‘zgarishi mumkin.</li>
+        </ul>
+      </div>
+      <button class="btn" id="okPolicy">Tushunarli</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
